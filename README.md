@@ -11,7 +11,7 @@
   <img src="https://github.com/ClusterDuck-Protocol/ClusterDuck-Protocol/actions/workflows/arduino_ci.yml/badge.svg" alt="Build Status">
 </p>
 
-
+## This is a fork of CDP for a student Capstone project aiming to create a clusterduck network comprised of a mama and a papa with a chat feature for emergency relief.
 
 ## What is the CDP?
 
