@@ -6,6 +6,7 @@
 #include <string>
 #include <arduino-timer.h>
 #include <CDP.h>
+// #include "emergencyPortal.h"
 
 #ifdef SERIAL_PORT_USBVIRTUAL
 #define Serial SERIAL_PORT_USBVIRTUAL
@@ -30,13 +31,17 @@ void setup() {
   // given during the device provisioning then converted to a byte vector to
   // setup the duck NOTE: The Device ID must be exactly 8 bytes otherwise it
   // will get rejected
-  std::string deviceId("MAMA0003");
+  std::string deviceId("HELPINGU");
   std::vector<byte> devId;
   devId.insert(devId.end(), deviceId.begin(), deviceId.end());
   if (duck.setupWithDefaults(devId) != DUCK_ERR_NONE) {
     Serial.println("[MAMA] Failed to setup MamaDuck");
     return;
   }
+
+  // duck.setupWifi();
+  // duck.setupDns();
+  // duck.setupWebServer(true, emergencyPortal);
 
   setupOK = true;
 
