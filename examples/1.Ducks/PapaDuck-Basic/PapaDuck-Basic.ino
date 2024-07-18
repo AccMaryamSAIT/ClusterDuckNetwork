@@ -11,20 +11,16 @@
  */
 
 #include <CDP.h>
-
 #include <ArduinoJson.h>
 #include <arduino-timer.h>
 #include <string>
-
 #include <queue>
 #include <iomanip>
 #include <sstream>
 
-
 std::string toTopicString(byte topic);
 String convertToHex(byte* data, int size);
 int toJSON(CdpPacket packet);
-
 
 const int bufferSize = 4 * JSON_OBJECT_SIZE(4);
 StaticJsonDocument<bufferSize> doc;
@@ -36,10 +32,8 @@ PapaDuck duck;
 
 auto timer = timer_create_default();
 
-
 std::string toTopicString(byte topic) 
 {
-
   std::string topicString;
 
   switch (topic) {
@@ -104,7 +98,6 @@ String convertToHex(byte* data, int size)
 
 int toJSON(CdpPacket packet) 
 {
-  
   std::stringstream ss;
 
   // convert the dduid to a string. We should probably do this for all fields
@@ -140,7 +133,6 @@ int toJSON(CdpPacket packet)
   serializeJsonPretty(doc, Serial);
   Serial.print("\n[PAPA] --------------------------------------------------------------------------------------\n\n");
 
-  
   return 1;
 }
 
@@ -157,6 +149,11 @@ void handleDuckData(std::vector<byte> packetBuffer)
 
 void setup() 
 {
+  Serial.begin(115200); // Initialize Serial with baud rate 115200
+  delay(2000); // Give some time for the Serial to initialize
+
+  Serial.println("[PAPA] Starting setup...");
+  
   std::string deviceId("PAPADUCK");
   std::vector<byte> devId;
   devId.insert(devId.end(), deviceId.begin(), deviceId.end());
@@ -170,7 +167,6 @@ void setup()
   duck.onReceiveDuckData(handleDuckData);
 
   Serial.println("[PAPA] Setup OK! ");
-
   duck.enableAcks(false);
 }
 
