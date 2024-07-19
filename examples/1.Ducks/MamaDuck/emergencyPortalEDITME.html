@@ -107,6 +107,17 @@ const char emergencyPortal[] PROGMEM = R"=====( -->
                 border-radius: 8px;
                 text-align: left;
             }
+            .zones {
+                background-color: #F5F5F5;
+                color: #333333;
+                width: 100%;
+                max-width: 250px;
+                margin: 0 auto 1% auto;
+                padding: 32px;
+                border-radius: 8px;
+                text-align: left;
+            }
+
             .textbox {
                 padding: 4px;
                 border-radius: 4px;
@@ -144,20 +155,33 @@ const char emergencyPortal[] PROGMEM = R"=====( -->
             <h1 class="">CRISIS CONNECT</h1>
             <h2 class="">ClusterDuck Emergency Network</h2>
             <p>You are connected to a ClusterDuck Emergency Network. Please fill out the form to share your status with first responders.</p>
+            <div class="zones">
+            <h3>Safe Zone 1: Central Park Shelter</h3>
+            <p><strong>Location:</strong> Central Park. Located near fountain, surrounded by oak trees.</p>
+            <p><strong>Resources Available:</strong> Food, Water, Medication, & Sleeping Space.</p>
+            
+            <h3>Safe Zone 2: Riverside Community Center</h3>
+            <p><strong>Location:</strong> Riverside Community Center, on the east side of town near the Riverbank.</p>
+            <p><strong>Resources Available:</strong> Food, Water, Medication, & Sleeping Space.</p>
+
+            <h3>DANGER ZONE ⚠️</h3>
+            <p><strong>Location:</strong> Westside Industrial Area, in the northwest part of town.</p>
+            <p><strong>Nature of the Danger:</strong> Tornado damage, hazardous debris.</p>
+            </div>
             <div id="form">
                 <form action="/formSubmit" method="post">
                     <label for="firstName">First Name</label><br>
-                    <input class="textbox textbox-full" name="firstName" id="firstName" type="text" placeholder="Tarzán" /><br><br>
+                    <input class="textbox textbox-full" name="firstName" id="firstName" type="text" placeholder="John" /><br><br>
                     <label for="lastName">Last Name(s)</label><br>
-                    <input class="textbox textbox-full" name="lastName" id="lastName" type="text" placeholder="Bulldog" /> <br /><br>
+                    <input class="textbox textbox-full" name="lastName" id="lastName" type="text" placeholder="Doe" /> <br /><br>
                     <label for="streetAddress">Street Address</label>
-                    <input class="textbox textbox-full" name="streetAddress" id="streetAddress" type="text" placeholder="PR-108" /> <br /> <br />
+                    <input class="textbox textbox-full" name="streetAddress" id="streetAddress" type="text" placeholder="Sesame Street" /> <br /> <br />
                     <label for="city">City</label><br>
-                    <input class="textbox textbox-full" id="city" name="city" type="text" placeholder="Mayagüez" /><br><br>
+                    <input class="textbox textbox-full" id="city" name="city" type="text" placeholder="Calgary" /><br><br>
                     <label for="zipcode">Zipcode</label><br>
-                    <input class="textbox textbox-full" name="zipcode" type="number" placeholder="00682" /> <br /> <br />
+                    <input class="textbox textbox-full" name="zipcode" type="number" placeholder="A0B 0A0" /> <br /> <br />
                     <label for="phone">Phone</label><br />
-                    <input class="textbox textbox-full" name="phone" id="phoneNumber" type="tel" placeholder="787-123-1234" />
+                    <input class="textbox textbox-full" name="phone" id="phoneNumber" type="tel" placeholder="555-123-1234" />
                     <br /> <br />
                     <label for="status">Current Status</label><br />
                     <input name="status" id="currentStatusSos" type="radio" value="sos" /> I'm in immediate danger (SOS)
@@ -176,7 +200,7 @@ const char emergencyPortal[] PROGMEM = R"=====( -->
                     <span>Children </span><input class="textbox textbox-small" name="children" id="childrenInput" type="number" placeholder="2" />
                     <span>Elderly </span><input class="textbox textbox-small" name="elderly" id="elderlyInput" type="number" placeholder="2" /><br><br>
                     <label for="status">Do you have any pets?</label><br />
-                    <input class="textbox textbox-full" name="pets" id="petsInput" type="text" placeholder="1 gato y 1 perro" />
+                    <input class="textbox textbox-full" name="pets" id="petsInput" type="text" placeholder="1 cat and 1 dog" />
                     <br /> <br />
                     <label for="status">Additional Comments</label><br />
                     <textarea class="textbox comments" name="message" id="commentsInput" cols="30" rows="2"></textarea><br />
