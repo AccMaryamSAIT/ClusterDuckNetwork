@@ -107,7 +107,7 @@ const char emergencyPortal[] PROGMEM = R"=====( -->
                 border-radius: 8px;
                 text-align: left;
             }
-            .zones {
+            /* .zones {
                 background-color: #F5F5F5;
                 color: #333333;
                 width: 100%;
@@ -116,7 +116,7 @@ const char emergencyPortal[] PROGMEM = R"=====( -->
                 padding: 32px;
                 border-radius: 8px;
                 text-align: left;
-            }
+            } */
 
             .textbox {
                 padding: 4px;
@@ -155,7 +155,7 @@ const char emergencyPortal[] PROGMEM = R"=====( -->
             <h1 class="">CRISIS CONNECT</h1>
             <h2 class="">ClusterDuck Emergency Network</h2>
             <p>You are connected to a ClusterDuck Emergency Network. Please fill out the form to share your status with first responders.</p>
-            <div class="zones">
+            <!-- <div class="zones">
             <h3>Safe Zone 1: Central Park Shelter</h3>
             <p><strong>Location:</strong> Central Park. Located near fountain, surrounded by oak trees.</p>
             <p><strong>Resources Available:</strong> Food, Water, Medication, & Sleeping Space.</p>
@@ -167,9 +167,9 @@ const char emergencyPortal[] PROGMEM = R"=====( -->
             <h3>DANGER ZONE ⚠️</h3>
             <p><strong>Location:</strong> Westside Industrial Area, in the northwest part of town.</p>
             <p><strong>Nature of the Danger:</strong> Tornado damage, hazardous debris.</p>
-            </div>
+            </div> -->
             <div id="form">
-                <form action="/formSubmit" method="post">
+                <form action="/formSubmit.json" method="post">
                     <label for="firstName">First Name</label><br>
                     <input class="textbox textbox-full" name="firstName" id="firstName" type="text" placeholder="John" /><br><br>
                     <label for="lastName">Last Name(s)</label><br>

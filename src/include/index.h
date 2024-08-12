@@ -3,407 +3,231 @@
 const char MAIN_page[] PROGMEM = R"=====(
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ClusterDuck Portal</title>
-    <meta name="description" content="ClusterDuck Network Portal by the ClusterDuck Protocol">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            font: 14px "Avenir", helvetica, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            padding: 2em;
-        }
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>ClusterDuck Emergency Network</title>
+        <meta name="description" content="ClusterDuck Emergency Network Powered by the ClusterDuck Protocol">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {
+                background-color: rgb(255, 170, 0);
+                font: 14px "Avenir", helvetica, sans-serif;
+                color: black;
+                -webkit-font-smoothing: antialiased;
+            }
+        
+            .content {
+                text-align: center;
+                padding: 0 16px;
+            }
+            .body.on {
+               display: block;
+            }
+            .body.off {
+               display: none;
+            }
+            /* .body.sent {
 
-        h2 {
-            text-align: center;
-            color: #111;
-            margin: 16px 0 8px;
-        }
+            } */
+            .body.sent .c {
+               background: #fff;
+               color: #111;
+               width: auto;
+               max-width: 80%;
+               margin: 0 auto;
+               padding: 1em;
+            }
+            .body.sent .c h4 {
+               margin: 0 0 1em;
+               font-size: 1.5em;
+            }
+            .b {
+               display: block;
+               padding: 20px;
+               text-align: center;
+               cursor: pointer;
+            }
+            .b:hover {
+               opacity: .7;
+            }
+            .lang, .details, .update, .home {
+               display: block;
+               color: #fff;
+               border: 1px solid #fff;
+               font-size: 1.25em;
+               font-weight: 600;
+               line-height: 1.5em;
+               margin-bottom: 1em;
+            }
+            .details {
+               background: #000000;
+               border: 0;
+            }
+            .update {
+               border: 0;
+               background: #fe5454;
+            }
+            #sendReportBtn {
+                box-shadow: 0px 1px 0px 0px #fff6af;
+                background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+                background-color:#ffec64;
+                border-radius:6px;
+                border:1px solid #ffaa22;
+                cursor:pointer;
+                color:#333333;
+                font-family:Arial;
+                font-size:15px;
+                font-weight:bold;
+                padding:6px 24px;
+                text-decoration:none;
+                text-shadow:0px 1px 0px #ffee66;
+                text-align: center;
+                width: 100%;
+                margin-top: 24px;
+                display: none;
 
-        h3 {
-            font-size: 14px;
-            margin: 0 0 24px;
-            color: #111;
-            font-weight: 400;
-        }
+            }
+            #sendReportBtn:hover {
+                background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+                background-color:#ffab23;
+            }
+            #sendReportBtn:active {
+                position:relative;
+                top:1px;
+            }
+            #form {
+                background-color: #F5F5F5;
+                color: #333333;
+                width: 100%;
+                max-width: 250px;
+                margin: auto;
+                padding: 32px;
+                border-radius: 8px;
+                text-align: left;
+            }
+            .zones {
+                background-color: #F5F5F5;
+                color: #333333;
+                width: 100%;
+                max-width: 250px;
+                margin: 0 auto 1% auto;
+                padding: 32px;
+                border-radius: 8px;
+                text-align: left;
+            }
 
-        h6 {
-            font-size: 12px;
-            font-weight: 300;
-            line-height: 16px;
-            margin: 16px 0 0;
-            color: rgba(0, 0, 0, .5);
-        }
+            .textbox {
+                padding: 4px;
+                border-radius: 4px;
+                border:solid 1px;
+                /* color: rgb(184, 184, 184); */
+            }
+            .textbox-small {
+                width: 20px;
+            }
+            .textbox-full {
+                width: 100%;
+            }
+            .comments {
+                width: 100%;
+                height: 100px;
+            }
+            .alert{
+                color:red;
+                font-weight: 800;
+            }
+            label  {
+                font-weight: bold;
+            }
+            #sendReportBtn.button-on{
+                display: block;
 
-        p {
-            color: #111;
-        }
+            }
+           
 
-        a {
-            text-decoration: none;
-        }
+        </style>
+        </head>
+    <body>
+   
+        <div class="content body" id="formContent">
+            <h1 class="">CRISIS CONNECT</h1>
+            <h2 class="">ClusterDuck Emergency Network</h2>
+            <p>You are connected to a ClusterDuck Emergency Network. Please fill out the form to share your status with first responders.</p>
+            <!-- <div class="zones">
+            <h3>Safe Zone 1: Central Park Shelter</h3>
+            <p><strong>Location:</strong> Central Park. Located near fountain, surrounded by oak trees.</p>
+            <p><strong>Resources Available:</strong> Food, Water, Medication, & Sleeping Space.</p>
+            
+            <h3>Safe Zone 2: Riverside Community Center</h3>
+            <p><strong>Location:</strong> Riverside Community Center, on the east side of town near the Riverbank.</p>
+            <p><strong>Resources Available:</strong> Food, Water, Medication, & Sleeping Space.</p>
 
-        .content {
-            text-align: center;
-        }
-
-        .main.on {
-            display: block;
-        }
-
-        .main.off {
-            display: none;
-        }
-
-        .main.sent {
-        }
-
-        .main.sent .updateBox {
-            background: #fff;
-            color: #111;
-            width: auto;
-            max-width: 80%;
-            margin: 0 auto;
-            padding: 14px;
-        }
-
-        .main.sent .updateBox h4 {
-            margin: 0 0 1em;
-            font-size: 1.5em;
-        }
-
-        .updateClass {
-            display: block;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .updateClass:hover {
-            opacity: .7;
-        }
-
-        .update {
-            background-color: #2A2C49;
-            border-radius: 6px;
-            display: block;
-            cursor: pointer;
-            color: white;
-            font-family: Arial;
-            font-size: 15px;
-            font-weight: 700;
-            padding: 10px 24px;
-            text-decoration: none;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .updateBox {
-            background-color: #F5F5F5;
-            color: #333333;
-            padding: 18px 24px 14px;
-            border-radius: 8px;
-            text-align: left;
-        }
-
-        #sendBtn {
-            width: 100%;
-            margin-top: 10px;
-            margin-bottom: 32px;
-            font-weight: 700;
-            font-size: 14px;
-            text-decoration: none;
-            border-radius: 12px;
-            text-align: center;
-            padding: 0.5em;
-            background: #2A2C49;
-            color: #fff;
-            text-transform: uppercase;
-
-        }
-
-        #backBtn {
-            width: 100%;
-            margin-top: 10px;
-            margin-bottom: 32px;
-            font-weight: 700;
-            font-size: 14px;
-            text-decoration: none;
-            border-radius: 12px;
-            text-align: center;
-            padding: 0.5em;
-            color: #2A2C49;
-            background: white;
-            border: 2px solid #2A2C49;
-
-        }
-
-        .sendReportBtn:hover {
-            background: #E1E1E1;
-            background-color: #ffab23;
-        }
-
-        .sendReportBtn:active {
-            position: relative;
-            top: 1px;
-        }
-
-        #form {
-            background-color: #F5F5F5;
-            color: #333333;
-            padding: 18px 24px 14px;
-            border-radius: 8px;
-            text-align: left;
-            margin-bottom: 2em;
-        }
-
-        .textbox {
-            padding: .5em;
-            border-radius: 4px;
-            border: solid 1px;
-            margin: .5em 0;
-            display: block;
-        }
-
-        .textbox-small {
-            width: 20px;
-        }
-
-        .textbox-full {
-            width: 95%;
-            height: 5em;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        #lastMessageSection {
-            font-weight: 400;
-        }
-    </style>
-</head>
-<body>
-<!-- HTML content of the captive portal below -->
-<h2 class="">Send A Message</h2>
-<div class="content main" id="formContent">
-    <h3>Fill out the form below to submit information to the ClusterDuck network.</h3>
-    <div id="form">
-        <form>
-            <label for="clientId">Your ID:</label>
-            <input type="text" id="clientId" name="clientId" pattern="[A-NPZ1-9]{4}" maxlength=4>
-            <p>ID must be four characters long. It can be any capital letters of the Latin alphabet A-Z except O, or any
-                numbers 1-9.</p>
-            <label for="status">Your message:</label><br/>
-            <textarea class="textbox comments textbox-full" maxlength=200 name="message" id="commentsInput" cols="30"
-                      rows="2" onkeyup="updateCounter(this)"></textarea>
-
-                    Remaining characters: <span id="counter">200</span>
-
-                    <script type="text/javascript">
-                    function updateCounter(textarea) {
-                        var currentLength = textarea.value.length;
-                        var maxCharacters = 200;
-                        var remainingCharacters = maxCharacters - currentLength;
-                        document.getElementById("counter").innerHTML = remainingCharacters;  
-                    }
-                    </script>
-            </textarea>
-                      
-            <button type="button" id="sendBtn" class="sendReportBtn">Send</button>
-            <p id="makeshiftErrorOutput" class="hidden"></p>
-        </form>
-    </div>
-</div>
-<div id="mainSent" class="=main off sent">
-    <div class="updateBox">
-        <div class="gps"><h4>Message Sent</h4>
-            <h5 id="dateNow">
-                <p class="disclaimer">If your situation changes, please send another update.</p>
-                <div id="lastMessageSection" class="hidden">
-                    <dl>
-                        <dt>Last message:</dt>
-                        <dd id="lastMessageField"></dd>
-                        <dt>Last message ID:</dt>
-                        <dd id="lastMessageMuid"></dd>
-                        <dt>Status:</dt>
-                        <dd id="muidStatus"></dd>
-                        <dt>Status Message:</dt>
-                        <dd id="muidStatusMessage"></dd>
-                    </dl>
-                </div>
-
-                <div id="messages-container"></div>
+            <h3>DANGER ZONE ⚠️</h3>
+            <p><strong>Location:</strong> Westside Industrial Area, in the northwest part of town.</p>
+            <p><strong>Nature of the Danger:</strong> Tornado damage, hazardous debris.</p>
+            </div> -->
+            <div id="form">
+                <form action="/formSubmit" method="post">
+                    <label for="firstName">First Name</label><br>
+                    <input class="textbox textbox-full" name="firstName" id="firstName" type="text" placeholder="John" /><br><br>
+                    <label for="lastName">Last Name(s)</label><br>
+                    <input class="textbox textbox-full" name="lastName" id="lastName" type="text" placeholder="Doe" /> <br /><br>
+                    <label for="streetAddress">Street Address</label>
+                    <input class="textbox textbox-full" name="streetAddress" id="streetAddress" type="text" placeholder="Sesame Street" /> <br /> <br />
+                    <label for="city">City</label><br>
+                    <input class="textbox textbox-full" id="city" name="city" type="text" placeholder="Calgary" /><br><br>
+                    <label for="zipcode">Zipcode</label><br>
+                    <input class="textbox textbox-full" name="zipcode" type="number" placeholder="A0B 0A0" /> <br /> <br />
+                    <label for="phone">Phone</label><br />
+                    <input class="textbox textbox-full" name="phone" id="phoneNumber" type="tel" placeholder="555-123-1234" />
+                    <br /> <br />
+                    <label for="status">Current Status</label><br />
+                    <input name="status" id="currentStatusSos" type="radio" value="sos" /> I'm in immediate danger (SOS)
+                    <br><input name="status" id="currentStatusOk" type="radio" value="ok" /> OK <br />
+                    <br />
+                    <label for="status">Needs</label><br />
+                    <input type="checkbox" name="water" id="waterNeed" type="radio" value="water" /> Water
+                    <input name="transportation" id="transportationNeed" type="checkbox" value="transportation" /> Transportation <br />
+                    <input type="checkbox" name="food" id="foodNeed" type="radio" value="food" /> Food
+                    <input name="inspection" id="inspectionNeed" type="checkbox" value="inspection" /> Structural Inspection <br />
+                    <input type="checkbox" name="firstaid" id="firstAidNeed" type="radio" value="firstaid" /> First Aid
+                    <input name="shelter" type="checkbox" id="shelterNeed" value="shelter" /> Shelter <br />
+                    <br />
+                    <label for="status">How many people are with you?</label><br />
+                    <span>Adults </span><input class="textbox textbox-small" name="adults" id="adultsInput" type="number" placeholder="2" />
+                    <span>Children </span><input class="textbox textbox-small" name="children" id="childrenInput" type="number" placeholder="2" />
+                    <span>Elderly </span><input class="textbox textbox-small" name="elderly" id="elderlyInput" type="number" placeholder="2" /><br><br>
+                    <label for="status">Do you have any pets?</label><br />
+                    <input class="textbox textbox-full" name="pets" id="petsInput" type="text" placeholder="1 cat and 1 dog" />
+                    <br /> <br />
+                    <label for="status">Additional Comments</label><br />
+                    <textarea class="textbox comments" name="message" id="commentsInput" cols="30" rows="2"></textarea><br />
+                    <div id="count">
+                    
+                    </div>
+                    <input type="submit"  class="button-on" id="sendReportBtn" value="SEND REPORT" />
+                </form>
+                <p style="font-size: 10px; text-align: center;margin-top: 24px;">Powered by the ClusterDuck Protocol</p>
+            </div>
         </div>
-    </div>
-    <a href="/">
-        <button type="button" id="backBtn">Go Back Home</button>
-    </a>
+      <script type="text/javascript">
 
 
-    <!-- Run javascript actions here -->
-    <script type="text/javascript">
-        const MUID_URL = '/muidStatus.json';
-        const MUID_PARAM_NAME = 'muid';
-        const CLIENT_ID_LENGTH = 4;
-        const CLIENT_ID_KEY = 'CLIENT_ID';
-        const NOT_ACKED_MSG = "The message may have been received, but we're still waiting for confirmation."
-        var messageController;
-        var muidRequest;
-
-        function CreateMuidRequest(muid) {
-            return MuidRequest(
-                muid,
-                document.getElementById('muidStatus'),
-                document.getElementById('muidStatusMessage')
-            );
-        }
-
-        var MessageController = function () {
-            var loadListener = function () {
-                // this.responseText should be something like: {"muid":"ABCD"}
-                var res = JSON.parse(this.responseText);
-                messageController.saveLastMuid(res.muid);
-                var errEl = document.getElementById('makeshiftErrorOutput');
-                if (!errEl.classList.toString().includes("hidden")) {
-                    errEl.innerHTML = '';
-                    errEl.classList.add("hidden");
+        document.onkeydown = function () {
+            var AllLength = document.getElementById("firstName").value + document.getElementById("lastName").value + document.getElementById("streetAddress").value + document.getElementById("city").value + document.getElementById("commentsInput").value + document.getElementById("petsInput").value;
+                if (130 > AllLength.length) {
+                    document.getElementById("count").innerHTML='Length ' + AllLength.length + "/130";
+                    document.getElementById("sendReportBtn").classList.add("button-on");
+                     document.getElementById("count").classList.remove("alert");      
+                }   else{
+                     document.getElementById("count").innerHTML='Length ' + AllLength.length + "/130";
+                      document.getElementById("count").classList.add("alert");
+                     document.getElementById("sendReportBtn").classList.remove("button-on");
                 }
             };
-            var errorListener = function () {
-                var errorMessage = 'There was an error sending the message. Please try again.';
-                console.log(errorMessage);
-                var errEl = document.getElementById('makeshiftErrorOutput');
-                errEl.innerHTML = errorMessage;
-                errEl.classList.remove("hidden");
-            };
-            var showSentMessage = function (commentsInput) {
-                var lastMessageField = document.getElementById('lastMessageField');
-                lastMessageField.innerHTML = commentsInput.value;
-                // TODO: Create a new DOM view so multiple messages can be shown
-                var msgSection = document.getElementById('lastMessageSection');
-                msgSection.classList.remove("hidden");
-            };
-            return {
-                sendMessage: function () {
-                    var clientIdInput = document.getElementById('clientId');
-                    var commentsInput = document.getElementById('commentsInput');
-                    var params = new URLSearchParams("");
-                    params.append(clientIdInput.name, clientIdInput.value);
-                    params.append(commentsInput.name, commentsInput.value);
-                    var req = new XMLHttpRequest();
-                    req.addEventListener("load", loadListener);
-                    req.addEventListener("error", errorListener);
-                    req.open("POST", "/formSubmit.json?" + params.toString());
-                    req.send();
-                    showSentMessage(commentsInput);
-                },
-                saveLastMuid: function (muid) { <!-- for checking if message was acked on duk, needs fixed -->
-                    document.getElementById('lastMessageMuid').innerHTML = muid;
-                    muidRequest = CreateMuidRequest(muid);
-                    muidRequest.requestMuidStatus();
-                },
-            };
-        };
-        var MuidRequest = function (muid, statusEl, messageEl) {
-            var showStatus = function (status, message) {
-                statusEl.innerHTML = status;
-                messageEl.innerHTML = message;
-            };
-            var loadListener = function () {
-                var res = JSON.parse(this.responseText);
-                showStatus(res.status, res.message);
-                if (res.status === 'not_acked') {
-                    showStatus('not_acked', NOT_ACKED_MSG)
-                    setTimeout(requestMuidStatus, 1000);
-                }
-            };
-            var errorListener = function () {
-                showStatus('error', 'There was an unknown error');
-                setTimeout(requestMuidStatus, 1000);
-            };
-            var requestMuidStatus = function () {
-                var req = new XMLHttpRequest();
-                req.addEventListener("load", loadListener);
-                req.addEventListener("error", errorListener);
-                var url = MUID_URL;
-                var params = new URLSearchParams("");
-                params.append(MUID_PARAM_NAME, muid);
-                url += "?" + params.toString();
-                req.open("GET", makeUrlUnique(url));
-                req.send();
-            };
-            return {
-                requestMuidStatus: requestMuidStatus,
-            };
-        };
-
-        function makeUrlUnique(url) {
-            // Makes the URL bypass the browser's cache.
-            // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest#bypassing_the_cache
-            return url + ((/\?/).test(url) ? "&" : "?") + (new Date()).getTime();
-        }
-
-        function storageAvailable(type) {
-            var storage;
-            try {
-                storage = window[type];
-                var x = '__storage_test__';
-                storage.setItem(x, x);
-                storage.removeItem(x);
-                return true;
-            } catch (e) {
-                return e instanceof DOMException && (
-                        // everything except Firefox
-                        e.code === 22 ||
-                        // Firefox
-                        e.code === 1014 ||
-                        // test name field too, because code might not be present
-                        // everything except Firefox
-                        e.name === 'QuotaExceededError' ||
-                        // Firefox
-                        e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-                    // acknowledge QuotaExceededError only if there's something already stored
-                    (storage && storage.length !== 0);
-            }
-        }
-
-        function generateClientId() {
-            var result = '';
-            var characters = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
-            for (var i = 0; i < CLIENT_ID_LENGTH; i++) {
-                var randomIndex = Math.floor(Math.random() * characters.length);
-                result += characters.charAt(randomIndex);
-            }
-            return result;
-        }
-
-        function initialize() {
-            var clientId;
-            if (storageAvailable('localStorage')) {
-                if (window.localStorage.getItem(CLIENT_ID_KEY)) {
-                    clientId = window.localStorage.getItem(CLIENT_ID_KEY);
-                } else {
-                    clientId = generateClientId();
-                    window.localStorage.setItem(CLIENT_ID_KEY, clientId);
-                }
-                document.getElementById('clientId').value = clientId;
-            } else {
-                document.getElementById('clientId').value = '';
-            }
-            messageController = MessageController();
-            document.getElementById('sendBtn').addEventListener('click', messageController.sendMessage);
-        }
-
-        initialize();
-    </script>
-</body>
+      </script>
+    </body>
 </html>
 )=====";
 #endif
